@@ -9,21 +9,17 @@ $pos = array(
 
 $listener = getenv('LISTENER_URL');
 
-$exit_after_emit = !! getenv('EXIT_AFTER_EMIT');
-
 while (true) {
   $time = time();
 
   $sunrise = date_sunrise($time, SUNFUNCS_RET_STRING, $pos['lat'], $pos['lng']);
   if ( date('H:i', $time) === $sunrise ) {
     post($listener, array('status' => 'sunrise'));
-    if ( $exit_after_emit ) exit;
   }
 
   $sunset = date_sunset($time, SUNFUNCS_RET_STRING, $pos['lat'], $pos['lng']);
   if ( date('H:i', $time) === $sunset ) {
     post($listener, array('status' => 'sunset'));
-    if ( $exit_after_emit ) exit;
   }
 
   sleep(60);
