@@ -2,27 +2,23 @@
 
 if ( $TZ = getenv('TZ') ) date_default_timezone_set($TZ);
 
-$pos = array(
-  'lat' => (float)getenv('POS_LAT'),
-  'lng' => (float)getenv('POS_LNG'),
-);
-
-$listener = getenv('LISTENER_URL');
-
-while (true) {
-  $time = time();
-
-  $sunrise = date_sunrise($time, SUNFUNCS_RET_STRING, $pos['lat'], $pos['lng']);
-  if ( date('H:i', $time) === $sunrise ) {
-    post($listener, array('status' => 'sunrise'));
+function start() {
+  while (true) {
+    check(time());
+    sleep(60);
   }
+}
 
-  $sunset = date_sunset($time, SUNFUNCS_RET_STRING, $pos['lat'], $pos['lng']);
-  if ( date('H:i', $time) === $sunset ) {
-    post($listener, array('status' => 'sunset'));
-  }
+function check($time) {
+  $lat = (float)getenv('POS_LAT');
+  $lng = (float)getenv('POS_LNG');
+  $listener = getenv('LISTENER_URL');
 
-  sleep(60);
+  $sunrise = date_sunrise($time, SUNFUNCS_RET_STRING, $lat, $lng);
+  if ( date('H:i', $time) === $sunrise ) post($listener, array('status' => 'sunrise'));
+
+  $sunset = date_sunset($time, SUNFUNCS_RET_STRING, $lat, $lng);
+  if ( date('H:i', $time) === $sunset ) post($listener, array('status' => 'sunset'));
 }
 
 function post($url, array $data = []) {
@@ -43,3 +39,5 @@ function post($url, array $data = []) {
 
   return file_get_contents($url, false, stream_context_create($context));
 }
+
+start();
