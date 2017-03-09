@@ -3,8 +3,8 @@
 if ( $TZ = getenv('TZ') ) date_default_timezone_set($TZ);
 
 $pos = array(
-  'lat' => (float)getenv('POS_LNG'),
-  'lng' => (float)getenv('POS_LAT'),
+  'lat' => (float)getenv('POS_LAT'),
+  'lng' => (float)getenv('POS_LNG'),
 );
 
 $listener = getenv('LISTENER_URL');
