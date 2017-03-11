@@ -1,0 +1,28 @@
+{
+  "name": "Ramadan Switch",
+  "description": "Send webhooks to sunset and sunrise times.",
+  "repository": "https://github.com/hoto17296/ramadan-switch",
+  "env": {
+    "TZ": {
+      "description": "Time Zone",
+      "value": "Asia/Tokyo"
+    },
+    "POS_LAT": {
+      "description": "Latitude",
+      "value": "35.6"
+    },
+    "POS_LNG": {
+      "description": "Longitude",
+      "value": "139.7"
+    },
+    "LISTENER_URL": {
+      "description": "Webhook target URL"
+    }
+  },
+  "formation": {
+    "worker": {
+      "quantity": 1,
+      "size": "Hobby"
+    }
+  }
+}
