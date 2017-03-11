@@ -5,7 +5,8 @@
   "env": {
     "TZ": {
       "description": "Time Zone",
-      "value": "Asia/Tokyo"
+      "value": "Asia/Tokyo",
+      "required": false
     },
     "POS_LAT": {
       "description": "Latitude",
