@@ -9,15 +9,15 @@
       "required": false
     },
     "POS_LAT": {
-      "description": "Latitude",
+      "description": "The latitude of place from which the sunrise and sunset time is taken.",
       "value": "35.6"
     },
     "POS_LNG": {
-      "description": "Longitude",
+      "description": "The longitude of place from which the sunrise and sunset time is taken.",
       "value": "139.7"
     },
     "LISTENER_URL": {
-      "description": "Webhook target URL"
+      "description": "The URL to which webhook will be sent."
     }
   },
   "formation": {
