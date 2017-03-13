@@ -10,10 +10,8 @@ function start() {
 }
 
 function check($time) {
+  $location = (object)(new DateTimeZone( date_default_timezone_get() ))->getLocation();
   $listener = getenv('LISTENER_URL');
-
-  $tz = new DateTimeZone( date_default_timezone_get() );
-  $location = (object)$tz->getLocation();
 
   $sunrise = date_sunrise($time, SUNFUNCS_RET_STRING, $location->latitude, $location->longitude);
   if ( date('H:i', $time) === $sunrise ) post($listener, array('status' => 'sunrise'));
