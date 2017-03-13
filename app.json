@@ -4,17 +4,9 @@
   "repository": "https://github.com/hoto17296/ramadan-switch",
   "env": {
     "TZ": {
-      "description": "Time Zone",
+      "description": "The timezone of place from which the sunrise and sunset time is taken.",
       "value": "Asia/Tokyo",
       "required": false
-    },
-    "POS_LAT": {
-      "description": "The latitude of place from which the sunrise and sunset time is taken.",
-      "value": "35.6"
-    },
-    "POS_LNG": {
-      "description": "The longitude of place from which the sunrise and sunset time is taken.",
-      "value": "139.7"
     },
     "LISTENER_URL": {
       "description": "The URL to which webhook will be sent."
