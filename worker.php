@@ -10,14 +10,15 @@ function start() {
 }
 
 function check($time) {
-  $lat = (float)getenv('POS_LAT');
-  $lng = (float)getenv('POS_LNG');
   $listener = getenv('LISTENER_URL');
 
-  $sunrise = date_sunrise($time, SUNFUNCS_RET_STRING, $lat, $lng);
+  $tz = new DateTimeZone( date_default_timezone_get() );
+  $location = (object)$tz->getLocation();
+
+  $sunrise = date_sunrise($time, SUNFUNCS_RET_STRING, $location->latitude, $location->longitude);
   if ( date('H:i', $time) === $sunrise ) post($listener, array('status' => 'sunrise'));
 
-  $sunset = date_sunset($time, SUNFUNCS_RET_STRING, $lat, $lng);
+  $sunset = date_sunset($time, SUNFUNCS_RET_STRING, $location->latitude, $location->longitude);
   if ( date('H:i', $time) === $sunset ) post($listener, array('status' => 'sunset'));
 }
 
