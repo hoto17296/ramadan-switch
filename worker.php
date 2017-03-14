@@ -2,12 +2,11 @@
 
 if ( $TZ = getenv('TZ') ) date_default_timezone_set($TZ);
 
-function start() {
-  $listener = getenv('LISTENER_URL');
-  while (true) {
-    if ( $status = check(time()) ) post($listener, compact('status'));
-    sleep(60);
-  }
+$listener = getenv('LISTENER_URL');
+
+while (true) {
+  if ( $status = check(time()) ) post($listener, compact('status'));
+  sleep(60);
 }
 
 function check($time) {
@@ -40,5 +39,3 @@ function post($url, array $data = []) {
 
   return file_get_contents($url, false, stream_context_create($context));
 }
-
-start();
