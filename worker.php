@@ -3,21 +3,23 @@
 if ( $TZ = getenv('TZ') ) date_default_timezone_set($TZ);
 
 function start() {
+  $listener = getenv('LISTENER_URL');
   while (true) {
-    check(time());
+    if ( $status = check(time()) ) post($listener, compact('status'));
     sleep(60);
   }
 }
 
 function check($time) {
   $location = (object)(new DateTimeZone( date_default_timezone_get() ))->getLocation();
-  $listener = getenv('LISTENER_URL');
 
   $sunrise = date_sunrise($time, SUNFUNCS_RET_STRING, $location->latitude, $location->longitude);
-  if ( date('H:i', $time) === $sunrise ) post($listener, array('status' => 'sunrise'));
+  if ( date('H:i', $time) === $sunrise ) return 'sunrise';
 
   $sunset = date_sunset($time, SUNFUNCS_RET_STRING, $location->latitude, $location->longitude);
-  if ( date('H:i', $time) === $sunset ) post($listener, array('status' => 'sunset'));
+  if ( date('H:i', $time) === $sunset ) return 'sunset';
+
+  return null;
 }
 
 function post($url, array $data = []) {
